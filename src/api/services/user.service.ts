@@ -1,7 +1,8 @@
 // src\api\services\user.service.ts
 
 import { prisma } from "lib/prisma";
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
+import { generateToken } from "../../lib/token";
 
 // Service to register user
 export const registerUserService = async (
@@ -16,7 +17,7 @@ export const registerUserService = async (
 
   if (existingUser) throw new Error("User with this email already exists");
 
-  const hashedPassword = await bcryptjs.hash(password, 10); // Encrypt user's password
+  const hashedPassword = await bcrypt.hash(password, 10); // Encrypt user's password
 
   // Register user
   return await prisma.user.create({
@@ -26,4 +27,23 @@ export const registerUserService = async (
       password: hashedPassword,
     },
   });
+};
+
+// Service to login user
+export const loginUserService = async (email: string, password: string) => {
+  // Check if user exists
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) throw new Error("User not found. Create an account"); // Throw if user doesn't exists
+
+  // Check if password is valid
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) throw new Error("Incorrect password. Forgot Password?");
+
+  // Generate token and provide session id to user while signing in
+  const token = generateToken(user.user_id);
+
+  return { token, user };
 };
