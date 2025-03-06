@@ -1,6 +1,6 @@
 // src\api\services\user.service.ts
 
-import { prisma } from "lib/prisma";
+import { prisma } from "../../lib/prisma";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../../lib/token";
 
