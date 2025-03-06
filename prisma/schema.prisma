@@ -9,6 +9,27 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id   String   @id @default(uuid()) @map("_id") @db.ObjectId
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  tasks Task[] // One to many relationship with Task Table
+}
+
+model Task {
+  task_id     String   @id @default(uuid()) @map("_id") @db.ObjectId
+  title       String   @unique
+  description String
+  isComplete  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  User    User?   @relation(fields: [user_id], references: [user_id])
+  user_id String? @db.ObjectId
 }
