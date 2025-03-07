@@ -1,3 +1,5 @@
+// src\server.ts
+
 import { env } from "./config/env.config";
 import app from "./config/app.config";
 import userRoutes from "./api/routes/user.route";

@@ -56,3 +56,15 @@ export const checkUserProfile = async (user_id: string) => {
     select: { name: true, email: true },
   });
 };
+
+// Service to delete a user
+export const deleteUserService = async (user_id: string) => {
+  // Check if user exists
+  const existingUser = await prisma.user.findUnique({ where: { user_id } });
+  if (!existingUser) throw new Error("User doesn't exist");
+
+  // Delete user
+  return await prisma.user.delete({
+    where: { user_id },
+  });
+};
