@@ -49,7 +49,7 @@ export const loginUserService = async (email: string, password: string) => {
 };
 
 // Service to check and retrieve signed-in user's info
-export const checkUserProfile = async (user_id: string) => {
+export const checkUserProfileService = async (user_id: string) => {
   // Return current user
   return await prisma.user.findUnique({
     where: { user_id },
