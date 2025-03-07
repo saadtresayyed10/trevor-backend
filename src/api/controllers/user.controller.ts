@@ -48,7 +48,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       sameSite: "strict",
     });
 
-    res.status(200).json({ success: true, login: user });
+    res.status(200).json({ success: true, loginUser: user });
   } catch (error: any) {
     res.status(400).json({ success: false, message: error.message });
   }
@@ -102,14 +102,14 @@ export const deleteUserController = async (req: Request, res: Response) => {
         success: false,
         message: "User ID is required",
       });
-
-      const deleteUser = await deleteUserService(user_id);
-
-      res.status(200).json({
-        success: true,
-        data: `${deleteUser.name} deleted successfully`,
-      });
     }
+
+    const deleteUser = await deleteUserService(user_id);
+
+    res.status(200).json({
+      success: true,
+      data: `${deleteUser.name} deleted successfully`,
+    });
   } catch (error: any) {
     res.status(400).json({ success: false, message: error.message });
   }

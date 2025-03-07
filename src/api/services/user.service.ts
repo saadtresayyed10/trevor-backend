@@ -53,7 +53,7 @@ export const checkUserProfileService = async (user_id: string) => {
   // Return current user
   return await prisma.user.findUnique({
     where: { user_id },
-    select: { name: true, email: true },
+    select: { name: true, email: true, createdAt: true, user_id: true },
   });
 };
 
