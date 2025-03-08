@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "baseUrl": "src",
-    "outDir": "dist",
-    "sourceMap": true,
-    "noImplicitAny": true
+    "target": "ESNext", // Use the latest ECMAScript version
+    "module": "NodeNext", // Good for modern Node.js (ES modules)
+    "moduleResolution": "NodeNext", // Resolves modules in Node.js style
+    "baseUrl": "src", // Base directory for module resolution
+    "outDir": "dist", // Compiled output goes to 'dist'
+    "sourceMap": true, // Generate source maps for debugging
+    "esModuleInterop": true, // Enable compatibility with CommonJS modules
+    "skipLibCheck": true, // Speeds up compilation by skipping library checks
+    "strict": true, // Enables strict type-checking
+    "allowJs": true, // Allows compiling JavaScript files
+    "noImplicitAny": true, // Enforces type safety
+    "resolveJsonModule": true // Allows importing JSON files
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"], // Includes all files in the 'src' folder
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary files
 }
