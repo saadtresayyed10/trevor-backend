@@ -8,6 +8,7 @@ import {
   getAllTaskService,
   getSingleTaskService,
   updateTaskService,
+  isCompleteService,
 } from "../services/task.service";
 
 // Controller to add task to a user
@@ -40,9 +41,9 @@ export const getAllTaskController = async (req: AuthRequest, res: Response) => {
     const user_id = req.user.id;
 
     const task = await getAllTaskService(user_id);
-    res.status(201).json({ success: true, data: task });
+    res.status(200).json({ success: true, total: task.length, data: task });
   } catch (error: any) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(404).json({ success: false, message: error.message });
   }
 };
 
@@ -56,9 +57,9 @@ export const getSingleTaskController = async (
     const user_id = req.user.id;
 
     const task = await getSingleTaskService(user_id, task_id);
-    res.status(201).json({ success: true, data: task });
+    res.status(200).json({ success: true, data: task });
   } catch (error: any) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(404).json({ success: false, message: error.message });
   }
 };
 
@@ -77,13 +78,26 @@ export const updateTaskController = async (req: AuthRequest, res: Response) => {
     }
 
     if (!user_id) {
-      res.status(500).json({ success: false, message: "User ID not found" });
+      res.status(400).json({ success: false, message: "User ID not found" });
     }
 
     const task = await updateTaskService(task_id, title, description, user_id);
-    res.status(201).json({ success: true, data: task });
+    res.status(200).json({ success: true, data: task });
   } catch (error: any) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+// Controller to toggle isComplete
+export const isCompleteController = async (req: AuthRequest, res: Response) => {
+  try {
+    const { task_id } = req.params;
+    const user_id = req.user.id;
+
+    const task = await isCompleteService(task_id, user_id);
+    res.status(200).json({ success: true, data: task });
+  } catch (error: any) {
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -94,8 +108,8 @@ export const deleteTaskController = async (req: AuthRequest, res: Response) => {
     const user_id = req.user.id;
 
     const task = await deleteTaskService(task_id, user_id);
-    res.status(201).json({ success: true, data: task });
+    res.status(200).json({ success: true, data: task });
   } catch (error: any) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };

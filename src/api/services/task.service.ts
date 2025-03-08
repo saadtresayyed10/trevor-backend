@@ -60,6 +60,31 @@ export const updateTaskService = async (
   });
 };
 
+// Service to update isComplete
+export const isCompleteService = async (task_id: string, user_id: string) => {
+  // Get the assigned task
+  const task = await prisma.task.findUnique({ where: { task_id, user_id } });
+  if (!task) throw new Error("Task is not assigned to the user"); // Throw if task is not found
+
+  if (task.isComplete === true) {
+    return prisma.task.update({
+      where: { task_id, user_id },
+      data: {
+        isComplete: false,
+      },
+    });
+  }
+
+  if (task.isComplete === false) {
+    return prisma.task.update({
+      where: { task_id, user_id },
+      data: {
+        isComplete: true,
+      },
+    });
+  }
+};
+
 // Service to delete task
 export const deleteTaskService = async (task_id: string, user_id: string) => {
   // Get the assigned task
