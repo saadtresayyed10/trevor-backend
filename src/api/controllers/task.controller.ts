@@ -15,7 +15,7 @@ import {
 export const createTaskController = async (req: AuthRequest, res: Response) => {
   try {
     const { title, description } = req.body;
-    const user_id = req.user.id;
+    const user_id = req.user!.id;
 
     if (!title || !description) {
       res.status(500).json({
@@ -38,7 +38,7 @@ export const createTaskController = async (req: AuthRequest, res: Response) => {
 // Controller to get all task to a user
 export const getAllTaskController = async (req: AuthRequest, res: Response) => {
   try {
-    const user_id = req.user.id;
+    const user_id = req.user!.id;
 
     const task = await getAllTaskService(user_id);
     res.status(200).json({ success: true, total: task.length, data: task });
@@ -54,7 +54,7 @@ export const getSingleTaskController = async (
 ) => {
   try {
     const { task_id } = req.params;
-    const user_id = req.user.id;
+    const user_id = req.user!.id;
 
     const task = await getSingleTaskService(user_id, task_id);
     res.status(200).json({ success: true, data: task });
@@ -68,7 +68,7 @@ export const updateTaskController = async (req: AuthRequest, res: Response) => {
   try {
     const { task_id } = req.params;
     const { title, description } = req.body;
-    const user_id = req.user.id;
+    const user_id = req.user!.id;
 
     if (!title || !description) {
       res.status(500).json({
@@ -92,7 +92,7 @@ export const updateTaskController = async (req: AuthRequest, res: Response) => {
 export const isCompleteController = async (req: AuthRequest, res: Response) => {
   try {
     const { task_id } = req.params;
-    const user_id = req.user.id;
+    const user_id = req.user!.id;
 
     const task = await isCompleteService(task_id, user_id);
     res.status(200).json({ success: true, data: task });
@@ -105,7 +105,7 @@ export const isCompleteController = async (req: AuthRequest, res: Response) => {
 export const deleteTaskController = async (req: AuthRequest, res: Response) => {
   try {
     const { task_id } = req.params;
-    const user_id = req.user.id;
+    const user_id = req.user!.id;
 
     const task = await deleteTaskService(task_id, user_id);
     res.status(200).json({ success: true, data: task });
