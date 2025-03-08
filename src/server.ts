@@ -5,7 +5,7 @@ import app from "./config/app.config";
 import userRoutes from "./api/routes/user.route";
 import taskRoutes from "./api/routes/task.route";
 
-const PORT = env.port;
+const PORT = env.port || 8000;
 
 app.use("/api/user", userRoutes);
 app.use("/api/task", taskRoutes);
