@@ -30,6 +30,16 @@ export const getAllTaskService = async (user_id: string) => {
   });
 };
 
+// Service to get single task for a user
+export const getSingleTaskService = async (
+  user_id: string,
+  task_id: string
+) => {
+  return await prisma.task.findUnique({
+    where: { task_id, user_id },
+  });
+};
+
 // Service to update task
 export const updateTaskService = async (
   task_id: string,
