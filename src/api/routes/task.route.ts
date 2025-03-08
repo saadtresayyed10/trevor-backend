@@ -7,6 +7,7 @@ import {
   getSingleTaskController,
   updateTaskController,
   deleteTaskController,
+  isCompleteController,
 } from "../controllers/task.controller";
 import { Router } from "express";
 
@@ -20,5 +21,6 @@ taskRoutes.get("/", getAllTaskController);
 taskRoutes.get("/:task_id", getSingleTaskController);
 taskRoutes.put("/:task_id", updateTaskController);
 taskRoutes.delete("/:task_id", deleteTaskController);
+taskRoutes.put("/is-complete/:task_id", isCompleteController);
 
 export default taskRoutes;
