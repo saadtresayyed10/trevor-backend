@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "target": "ES2022",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "strict": true
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true, // Fix default import issues
+    "allowSyntheticDefaultImports": true, // More forgiving default imports
+    "strict": true // Enforce strict typing
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*", "types/**/*.d.ts"], // Include types
   "exclude": ["node_modules"]
 }
