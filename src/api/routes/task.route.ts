@@ -1,5 +1,6 @@
 // src\api\routes\task.route.ts
 
+import { authMiddleware } from "../../middleware/auth.middleware";
 import {
   createTaskController,
   getAllTaskController,
@@ -10,6 +11,9 @@ import {
 import { Router } from "express";
 
 const taskRoutes = Router();
+
+// Middleware for all task routes
+taskRoutes.use(authMiddleware);
 
 taskRoutes.post("/", createTaskController);
 taskRoutes.get("/", getAllTaskController);
